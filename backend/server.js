@@ -20,7 +20,7 @@ let categoryRoutes = require('./routes/categoryRoutes')
 app.use('/api/categories', categoryRoutes)
 
 let batchRoutes = require('./routes/batchRoutes')
-app.use('/api/batch', batchRoutes)
+app.use('/api/batchs', batchRoutes)
 
 let inputRoutes = require('./routes/inputRoutes')
 app.use('/api/inputs', inputRoutes)
