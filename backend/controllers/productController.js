@@ -1,18 +1,27 @@
 const asyncHandler = require("express-async-handler")
 const Product = require("../models/productModel")
+const Category = require("../models/categoryModel")
 
 const getProducts = asyncHandler(async (req,res) => {
     const products = await Product.find()
     res.status(200).json(products)
 })
 
+// @data name, categoryId, description, purchasePrice
 const createProduct = asyncHandler(async (req,res) => {
     if (!req.body.name || !req.body.categoryId || !req.body.description || !req.body.purchasePrice){
         res.status(400).send({error: "Fields name, categoryId, description and purchasePrice required"})
     }else{
+        const categoryData = await Category.findById(req.body.categoryId)
+        if (!categoryData){
+            res.status(400).send({error: "CategoryId cannot be found"})
+        }
         const newProduct = await Product.create({
             name: req.body.name,
-            categoryId: req.body.categoryId,
+            category: {
+                id: req.body.categoryId,
+                name: categoryData.name,
+            },
             description: req.body.description,
             purchasePrice: req.body.purchasePrice
         })
@@ -20,14 +29,28 @@ const createProduct = asyncHandler(async (req,res) => {
     }
 })
 
-// pass id as param
+// @param id
+// @data name, categoryId, description, purchasePrice
 const updateProduct = asyncHandler(async (req,res) => {
     const product = await Product.findById(req.params.id)
     if (!product){
         res.status(400).json({error: "Product not found"})        
     }
     // Todo check if not user
-    const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body,{new: true})
+    const categoryData = await Category.findById(req.body.categoryId)
+    if (!categoryData){
+        res.status(400).send({error: "CategoryId cannot be found"})
+    }
+    const newObject = {
+        name: req.body.name,
+        category: {
+            id: req.body.categoryId,
+            name: categoryData.name,
+        },
+        description: req.body.description,
+        purchasePrice: req.body.purchasePrice
+    }
+    const updatedProduct = await Product.findByIdAndUpdate(req.params.id, newObject,{new: true})
     res.status(200).json(updatedProduct)
 })
 

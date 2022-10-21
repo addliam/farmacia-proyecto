@@ -6,8 +6,13 @@ const productSchema = mongoose.Schema(
             unique: true,
             required: true
         },
-        categoryId: {
-            type: mongoose.Schema.Types.ObjectId
+        category: {
+            id: {
+                type: mongoose.Schema.Types.ObjectId
+            },
+            name: {
+                type: String
+            },
         },
         description: {
             type: String

@@ -1,17 +1,20 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from "next/link"
 import SideNavDropDownItem from './SideNavDropDownItem'
 
-const SideNavItem = ({image, title, contrast, w, h}) => {
+const SideNavItem = ({image, path, title, contrast, w, h}) => {
   return (
-    <button className={`${contrast?"bg-blackContrast":"bg-blackPrimary hover:bg-blackDark"}  pl-[24px] w-full h-[48px] flex flex-row items-center `}>
-      <div className='flex flex-row h-[16px] gap-[12px] justify-start  '>
-        <div className='w-[14px] h-[14px]'>
-        <Image src={image} alt="dashboard nav item" width={w?w:14} height={h?h:14} />          
+    <Link href={`/dashboard${path}`} >
+      <button className={`${contrast?"bg-blackContrast":"bg-blackPrimary hover:bg-blackDark"}  pl-[24px] w-full h-[48px] flex flex-row items-center `}>
+        <div className='flex flex-row h-[16px] gap-[12px] justify-start  '>
+          <div className='w-[14px] h-[14px]'>
+          <Image src={image} alt="dashboard nav item" width={w?w:14} height={h?h:14} />          
+          </div>
+          <span className='text-[15px] leading-[20px] '>{title}</span>
         </div>
-        <span className='text-[15px] leading-[20px] '>{title}</span>
-      </div>
-    </button>
+      </button>
+    </Link>
   )
 }
 
@@ -49,13 +52,13 @@ const SideNav = () => {
             {/* <SideNavItem image={"/assets/icons/products.png"} title={"Products"} w={14} h={14} /> */}
             {/* <SideNavItem image={"/assets/icons/dashboard.png"} title={"Inputs"} />
             <SideNavItem image={"/assets/icons/dashboard.png"} title={"Outputs"} /> */}
-            <SideNavItem image={"/assets/icons/users.png"} title={"Users management"}
+            <SideNavItem image={"/assets/icons/dashboard.png"} path={"/batchs"} title={"Batchs"} w={14} h={14} />
+            <SideNavItem image={"/assets/icons/users.png"} path={"/users"} title={"Users management"}
             w={14} h={9.8} />
-            <SideNavItem image={"/assets/icons/reports.png"} title={"Reports"}
+            <SideNavItem image={"/assets/icons/reports.png"} path={"/reports"}  title={"Reports"}
             w={14} h={7.64}/>
-            <SideNavItem image={"/assets/icons/dashboard.png"} title={"Batchs"} w={14} h={14} />
-            <SideNavItem image={"/assets/icons/alert.png"} title={"Alerts"} w={12} h={14} />
-            <SideNavItem image={"/assets/icons/configuration.png"} title={"Configuration"} />
+            <SideNavItem image={"/assets/icons/alert.png"} path={"/alerts"}  title={"Alerts"} w={12} h={14} />
+            <SideNavItem image={"/assets/icons/configuration.png"} path={"/settings"}  title={"Configuration"} />
 
           </div>
         </div>
