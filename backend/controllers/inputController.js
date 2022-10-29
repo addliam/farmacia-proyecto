@@ -45,7 +45,7 @@ const deleteInput = asyncHandler(async (req,res) => {
         res.status(400)
         throw new Error("Input product not found")        
     }
-    await Input.deleteOne({id: req.params.id})
+    await Input.deleteOne({_id: req.params.id})
     res.status(200).json({id: req.params.id})
 })
 

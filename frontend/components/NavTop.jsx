@@ -1,6 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
-import DateTimeWidget from './DateTimeWidget'
+// DateTime should not render on Server
+import dynamic from 'next/dynamic'
+
+const DateTimeWidget = dynamic(() => import('./DateTimeWidget'), {
+  ssr: false,
+})
 
 const NavTop = () => {
   return (

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const modelSchema = mongoose.Schema(
     {
         name: {
@@ -8,6 +9,10 @@ const modelSchema = mongoose.Schema(
         },
         description: {
             type: String
+        },
+        count: {
+            type: Number,
+            default: 0
         }
     },
     {

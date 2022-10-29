@@ -2,12 +2,12 @@ import React, {useState} from "react"
 import Image from 'next/image'
 import Link from "next/link"
 
-const SideNavDropDownItem = ({image, title, contrast, w, h, subitems}) => {
+const SideNavDropDownItem = ({image, title, w, h, subitems}) => {
     const [toggled, setToggled] = useState(false)
     return (
       <div>
-        <button className={`${toggled?'bg-blackDark':''} bg-blackPrimary hover:bg-blackDark"}  pl-[24px] w-full h-[48px] flex flex-row items-center relative`}>
-          <div className='flex flex-row flex-1 h-[16px] gap-[12px] justify-start ' onClick={()=>setToggled((prevState)=>!prevState)} >
+        <button onClick={()=>setToggled((prevState)=>!prevState)} className={`${toggled?'bg-blackDark':''} bg-blackPrimary hover:bg-blackDark"} pl-[24px] w-full h-[48px] flex flex-row items-center relative`}>
+          <div className='flex flex-row flex-1 h-[16px] gap-[12px] justify-start '>
             <div className='w-[14px] h-[14px]'>
             <Image src={image} alt="dashboard nav item" width={w?w:14} height={h?h:14} />          
             </div>

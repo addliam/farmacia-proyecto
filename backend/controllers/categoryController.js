@@ -33,8 +33,9 @@ const deleteCategory = asyncHandler(async (req,res) => {
     if (!category){
         res.status(400).json({error: "Category not found"})        
     }    
-    await Category.deleteOne({id: req.params.id})
-    res.status(200).json(req.params.id)
+    await Category.deleteOne({_id: req.params.id})
+    res.status(200).json({id: req.params.id})
+
 })
 
 module.exports = {

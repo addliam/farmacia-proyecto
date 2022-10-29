@@ -13,6 +13,7 @@ module.exports = {
         blackContrast: "#009099",
         white: "#FFFFFF",
         black: "#1D242E",
+        blackOverlay: "rgba(29, 36, 46, 0.5)",
         yellow: "#FED600",
         orange: "#F0483E",
         red: "#F0483E",

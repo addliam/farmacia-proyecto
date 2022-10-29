@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler")
 const Product = require("../models/productModel")
 const Category = require("../models/categoryModel")
+const { default: mongoose } = require("mongoose")
 
 const getProducts = asyncHandler(async (req,res) => {
     const products = await Product.find()
@@ -12,7 +13,8 @@ const createProduct = asyncHandler(async (req,res) => {
     if (!req.body.name || !req.body.categoryId || !req.body.description || !req.body.purchasePrice){
         res.status(400).send({error: "Fields name, categoryId, description and purchasePrice required"})
     }else{
-        const categoryData = await Category.findById(req.body.categoryId)
+        // const categoryData = await Category.findById(req.body.categoryId)
+        const categoryData = await Category.findByIdAndUpdate(req.body.categoryId,{$inc: {count: 1}})
         if (!categoryData){
             res.status(400).send({error: "CategoryId cannot be found"})
         }
@@ -61,7 +63,7 @@ const deleteProduct = asyncHandler(async (req,res) => {
         res.status(400)
         throw new Error("Product not found")        
     }
-    await Product.deleteOne({id: req.params.id})
+    await Product.deleteOne({_id: req.params.id})
     res.status(200).json({id: req.params.id})
 })
 

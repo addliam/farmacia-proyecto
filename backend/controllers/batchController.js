@@ -44,7 +44,7 @@ const deleteBatch = asyncHandler(async (req,res) => {
         res.status(400)
         throw new Error("Batch not found")        
     }
-    await Batch.deleteOne({id: req.params.id})
+    await Batch.deleteOne({_id: req.params.id})
     res.status(200).json({id: req.params.id})
 })
 
