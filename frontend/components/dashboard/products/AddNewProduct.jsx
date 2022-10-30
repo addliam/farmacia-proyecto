@@ -31,7 +31,7 @@ const AddNewProduct = ({handleClick, categories, refreshAction}) => {
         if (catId && name!=="" && category!=="" && description!=="" && price!==""){
             const json = JSON.stringify({
                 name: name,
-                description: category,
+                description: description,
                 categoryId: catId,
                 purchasePrice: price,
             })
