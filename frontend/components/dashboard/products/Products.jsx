@@ -1,10 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react'
 import TableProducts from './TableProducts'
 import Image from 'next/image'
 import Search from '../../Search'
 import PageNumberFoot from './PageNumberFoot'
 
 const Products = ({medicineData, categories, handleClick}) => {
+  const medicineDataLength = medicineData.length
+
+  const [pageNumber, setPageNumber] = useState(1)
+
+  const rightArrowHandler = () => {
+      setPageNumber((page)=>page+1)
+  }
+
+  const leftArrowHandler = () => {
+    setPageNumber((page)=>page-1)
+  }
 
   return (
     <>
@@ -15,7 +26,7 @@ const Products = ({medicineData, categories, handleClick}) => {
           <span className="text-[#1D242E80] text-[22px] font-semibold ">
           {"Inventory > "} 
           </span>
-          Medicines {`(${medicineData?medicineData.length:'000'})`}
+          Medicines {`(${medicineData?medicineDataLength:'000'})`}
           </h3>
           <span className='text-[13px] font-normal leading-[21px] text-blackDark '>List of medicines available for sale</span>
         </div>
@@ -36,7 +47,7 @@ const Products = ({medicineData, categories, handleClick}) => {
             <option value="volvo">- Select Category -</option>
             {
               categories?(
-                categories.map((category, indx)=>(
+                categories.map((category)=>(
                   <option key={category._id} value={`${category.name}`}>{category.name}</option>
                 ))
               ):("")
@@ -45,10 +56,11 @@ const Products = ({medicineData, categories, handleClick}) => {
         </div>
       </div>
       <div className='mt-6 flex flex-row justify-center'>
-        <TableProducts data={medicineData?medicineData:[]} />
+        <TableProducts page={pageNumber}
+        data={medicineData?medicineData.slice((pageNumber-1)*8,pageNumber*8):[]} />
       </div>
       <div className='mt-10 absolute w-11/12 bottom-2'>
-        <PageNumberFoot />
+        <PageNumberFoot maxPage={Math.ceil(medicineDataLength/8)} total={medicineDataLength} pageNumber={pageNumber} leftHandler={leftArrowHandler} rightHandler={rightArrowHandler} />
       </div>
     </div>
     </> 

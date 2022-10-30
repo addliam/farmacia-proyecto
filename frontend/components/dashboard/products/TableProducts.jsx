@@ -57,7 +57,7 @@ const TableCategories = ({data}) => {
             </thead>
             <tbody>
                 {
-                    data.length>0?data.slice(0,8).map((product)=>(
+                    data.length>0?data.map((product)=>(
                         <TableProductsRow key={product._id} product={product} />
                     )):''
                 }
