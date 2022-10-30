@@ -10,7 +10,14 @@ const AddNewProduct = ({handleClick, categories, refreshAction}) => {
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
+    const [price, setPrice] = useState(0);
+
+    const resetFormValuesDefault = () => {
+        setName('')
+        setCategory(categories[0].name)
+        setDescription('')
+        setPrice(0)
+    }
 
     const handleSelectChange = (e)=> {
         setCategory(e.target.value)
@@ -18,6 +25,7 @@ const AddNewProduct = ({handleClick, categories, refreshAction}) => {
 
     const handleSubmitForm = async (e) => {
         e.preventDefault();
+        // get categoryId that matches with selection on comboBox
         const catId = categories.filter((c)=>c.name===category)[0]._id
         // TODO: input validation
         if (catId && name!=="" && category!=="" && description!=="" && price!==""){
@@ -37,6 +45,7 @@ const AddNewProduct = ({handleClick, categories, refreshAction}) => {
                     const message = `Successfully added ${name}!`
                     toast.success(message)        
                     refreshAction()        
+                    resetFormValuesDefault()
                 }                
             } catch (error) {
                 toast.error("An error ocurred")
