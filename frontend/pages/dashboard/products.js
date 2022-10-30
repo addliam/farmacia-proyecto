@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useCallback} from 'react'
 import DashboardWrapper from '../../components/DashboardWrapper'
 import Products from '../../components/dashboard/products/Products'
 import AddNewProduct from '../../components/dashboard/products/AddNewProduct'
@@ -18,14 +18,22 @@ const DashboardProducts = ({dataProducts, dataCategories}) => {
   }
 
   const refreshData = async () => {
+    console.log("Refreshing data!");
     const resultProducts = await axios.get(BASE_URL_API+"/products")
-    const dataProducts = resultProducts.data;
-    setCurrentDataProducts(dataProducts)    
+    const dataProductsResult = resultProducts.data;
+    setCurrentDataProducts(dataProductsResult)    
   }
 
-  const searchFieldHandler = (value) =>{
-    const valueLower = value.toLowerCase()
-    setCurrentDataProducts((dataProducts)=>dataProducts.filter((prod)=>prod.name.toLowerCase().startsWith(valueLower)))
+  const searchFieldHandler = useCallback(
+    (value) =>{
+      const valueLower = value.toLowerCase()
+      setCurrentDataProducts((prevDataProducts)=>prevDataProducts.filter((prod)=>prod.name.toLowerCase().startsWith(valueLower)))
+    },
+    [dataProducts],
+  )
+
+  const categoryFilterHandler = (categoryFilter) => {
+    setCurrentDataProducts(()=>dataProducts.filter((prod)=>prod.category.id===categoryFilter))
   }
 
   const resetDataProductsInitialValue = () => {
@@ -57,7 +65,7 @@ const DashboardProducts = ({dataProducts, dataCategories}) => {
       ):('')
     }
     <DashboardWrapper>
-        <Products triggerOnBlankField={resetDataProductsInitialValue} searchHandler={searchFieldHandler} handleClick={handleShowForm} medicineData={currentDataProducts} categories={dataCategories} refreshAction={''} />
+        <Products triggerOnBlankField={resetDataProductsInitialValue} categoryFilterHandler={categoryFilterHandler} searchHandler={searchFieldHandler} handleClick={handleShowForm} medicineData={currentDataProducts} categories={dataCategories} refreshAction={''} />
     </DashboardWrapper>
   </>  
   )

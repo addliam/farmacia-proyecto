@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 
 const TableProductsRow = ({product}) => {
+    console.log("Render: TableProductsRow - TableProducts.jsx");    
     return (
     <tr className="bg-white text-[14px] border-b hover:bg-gray-50">
         <th scope="row" className="py-3 px-6 font-medium text-gray-900 whitespace-nowrap">
@@ -29,7 +30,8 @@ const TableProductsRow = ({product}) => {
 }
 
 
-const TableCategories = ({data}) => {
+const TableProducts = ({data}) => {
+  console.log("Render: TableProducts - TableProducts.jsx");    
   return (
     <div className="overflow-x-auto relative shadow-md sm:rounded-lg w-5/6">
         <table className="w-full text-sm text-left text-gray-500">
@@ -60,9 +62,11 @@ const TableCategories = ({data}) => {
                     data.length>0?data.map((product)=>(
                         <TableProductsRow key={product._id} product={product} />
                     )):(
-                        <div className='px-4 flex flex-row py-4'>
-                            <span >No data found</span>
-                        </div>
+                        <tr className='px-4 flex flex-row py-4'>
+                            <td>
+                                <span >No data found</span>
+                            </td>
+                        </tr>
                     )
                 }
 
@@ -72,4 +76,4 @@ const TableCategories = ({data}) => {
   )
 }
 
-export default TableCategories
+export default TableProducts

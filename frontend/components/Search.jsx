@@ -3,6 +3,7 @@ import Image from 'next/image'
 
 
 const Search = ({placeholder,buttonHandler, triggerOnBlankField}) => {
+  console.log("Render: Search - Search.jsx");
   const [value, setValue] = useState('')
   const myPressEnterRef = useRef(null)
 

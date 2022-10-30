@@ -19,6 +19,7 @@ const Arrow = ({active, left, handler}) => {
 }
 
 const PageNumberFoot = ({pageNumber, total, leftHandler, rightHandler, maxPage}) => {
+  console.log("Render: PageNumberFoot - PageNumberFoot.jsx");    
   return (
     <div className='flex-1 flex flex-row justify-between w-full h-max'>
     <div>

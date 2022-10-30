@@ -7,6 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 const BASE_URL_API = 'http://localhost:5000/api'
 
 const AddNewProduct = ({handleClick, categories, refreshAction}) => {
+    console.log("Render: AddNewProduct - AddNewProduct.jsx");
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');

@@ -1,13 +1,29 @@
-import React, {useState} from 'react'
+import React, {useState, useMemo, useEffect} from 'react'
 import TableProducts from './TableProducts'
 import Image from 'next/image'
 import Search from '../../Search'
 import PageNumberFoot from './PageNumberFoot'
 
-const Products = ({medicineData, categories, handleClick, searchHandler, triggerOnBlankField}) => {
+const Products = ({medicineData, categories, handleClick, categoryFilterHandler, searchHandler, triggerOnBlankField}) => {
+  console.log("Render: Products - Products.jsx");
   const medicineDataLength = medicineData.length
 
   const [pageNumber, setPageNumber] = useState(1)
+  const [categoryFilter, setCategoryFilter] = useState('')
+
+  useEffect(() => {
+    if (categoryFilter!==''){
+      console.log(`Category id: ${categoryFilter}`);
+      categoryFilterHandler(categoryFilter)
+    }  
+    return () => {
+    }
+  }, [categoryFilter])
+  
+
+  const handleCategoryFilter = (e) => {
+    setCategoryFilter(e.target.value)
+  }
 
   const rightArrowHandler = () => {
       setPageNumber((page)=>page+1)
@@ -16,6 +32,10 @@ const Products = ({medicineData, categories, handleClick, searchHandler, trigger
   const leftArrowHandler = () => {
     setPageNumber((page)=>page-1)
   }
+  
+  const slicedMedicineData = useMemo(() => medicineData.slice((pageNumber-1)*8,pageNumber*8), [pageNumber]) 
+
+  const maximumPageNumber = useMemo(() => Math.ceil(medicineDataLength/8), [medicineData])
 
   return (
     <>
@@ -43,12 +63,12 @@ const Products = ({medicineData, categories, handleClick, searchHandler, trigger
           <div className='w-8 flex flex-row justify-center items-center '>
             <Image src="/assets/icons/filter.svg" width={14} height={14} />
           </div>
-          <select name="category" id="category" className='text-blackDark text-[14px] w-[217px] h-[38px] px-4 pr-8'>
-            <option value="volvo">- Select Category -</option>
+          <select value={categoryFilter} onChange={handleCategoryFilter} name="category" id="category" className='text-blackDark text-[14px] w-[217px] h-[38px] px-4 pr-6'>
+            <option>- Filter by Category -</option>
             {
               categories.length>0?(
                 categories.map((category)=>(
-                  <option key={category._id} value={`${category.name}`}>{category.name}</option>
+                  <option key={category._id} value={`${category._id}`}>{category.name}</option>
                 ))
               ):("")
             }
@@ -56,11 +76,11 @@ const Products = ({medicineData, categories, handleClick, searchHandler, trigger
         </div>
       </div>
       <div className='mt-6 flex flex-row justify-center'>
-        <TableProducts page={pageNumber}
-        data={medicineDataLength>0?medicineData.slice((pageNumber-1)*8,pageNumber*8):[]} />
+        <TableProducts
+        data={medicineDataLength>0?slicedMedicineData:[]} />
       </div>
       <div className='mt-10 absolute w-11/12 bottom-2'>
-        <PageNumberFoot maxPage={Math.ceil(medicineDataLength/8)} total={medicineDataLength} pageNumber={pageNumber} leftHandler={leftArrowHandler} rightHandler={rightArrowHandler} />
+        <PageNumberFoot maxPage={maximumPageNumber} total={medicineDataLength} pageNumber={pageNumber} leftHandler={leftArrowHandler} rightHandler={rightArrowHandler} />
       </div>
     </div>
     </> 
