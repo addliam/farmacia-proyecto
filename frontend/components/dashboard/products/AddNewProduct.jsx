@@ -56,12 +56,12 @@ const AddNewProduct = ({handleClick, categories, refreshAction}) => {
     }
 
   return (
-    <div className='bg-blackOverlay inline-block z-20 h-screen w-screen absolute'>
-        <Toaster
+    <div className='bg-blackOverlay z-20 h-screen w-screen absolute flex flex-row justify-center items-center '>
+    <Toaster
             position="bottom-center"
             reverseOrder={false}
             />
-        <div className='bg-white relative px-8 py-7 mx-auto my-[70px] w-1/3'>
+        <div className='bg-white h-min relative px-8 py-7 mx-auto my-[70px] w-1/3'>
             <div onClick={()=>handleClick()} className='absolute rounded-full w-fit h-fit right-2 top-2 cursor-pointer' >
                 <Image src={"/assets/icons/closeButton.png"} alt={'close button'} width={24} height={24} />
             </div>
