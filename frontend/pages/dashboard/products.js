@@ -8,15 +8,21 @@ const BASE_URL_API = 'http://localhost:5000/api'
 
 const DashboardProducts = ({dataProducts, dataCategories}) => {
   const [showNewProductoForm, setShowNewProductoForm] = useState(false);
+  const [currentDataProducts, setCurrentDataProducts] = useState(dataProducts)
 
   const handleShowForm = () => {
-    setShowNewProductoForm((prev)=>!prev);
+    setShowNewProductoForm((prev)=>!prev)
   }
-
   const handleHideForm = () => {
-    setShowNewProductoForm(false);
+    setShowNewProductoForm(false)
   }
 
+  const refreshData = async () => {
+    const resultProducts = await axios.get(BASE_URL_API+"/products")
+    const dataProducts = resultProducts.data;
+    setCurrentDataProducts(dataProducts)    
+  }
+  
   // useEffect(() => {
   //   if (showNewProductoForm){
   //     const handleEsc = (event) => {
@@ -37,11 +43,11 @@ const DashboardProducts = ({dataProducts, dataCategories}) => {
   <>
     {
       showNewProductoForm?(
-        <AddNewProduct handleClick={handleHideForm} categories={dataCategories} />
+        <AddNewProduct refreshAction={refreshData} handleClick={handleHideForm} categories={dataCategories} />
       ):('')
     }
     <DashboardWrapper>
-        <Products handleClick={handleShowForm} medicineData={dataProducts} categories={dataCategories} />
+        <Products handleClick={handleShowForm} medicineData={currentDataProducts} categories={dataCategories} refreshAction={''} />
     </DashboardWrapper>
   </>  
   )

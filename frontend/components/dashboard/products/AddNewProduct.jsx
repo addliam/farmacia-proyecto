@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const BASE_URL_API = 'http://localhost:5000/api'
 
-const AddNewProduct = ({handleClick, categories}) => {
+const AddNewProduct = ({handleClick, categories, refreshAction}) => {
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
@@ -27,14 +27,20 @@ const AddNewProduct = ({handleClick, categories}) => {
                 categoryId: catId,
                 purchasePrice: price,
             })
-            const res = await axios.post(BASE_URL_API+"/products", json, {
-                headers: {
-                    'Content-Type': 'application/json'
-                  }                
-            })
-            const responseData = res.data;
-            const message = `Successfully added ${name}!`
-            toast.success(message)
+            try {
+                const res = await axios.post(BASE_URL_API+"/products", json, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                      }                
+                })
+                if (res.status < 300){
+                    const message = `Successfully added ${name}!`
+                    toast.success(message)        
+                    refreshAction()        
+                }                
+            } catch (error) {
+                toast.error("An error ocurred")
+            }
         }else{
             console.log("An error ocurred");
         }
@@ -57,7 +63,6 @@ const AddNewProduct = ({handleClick, categories}) => {
 
                 <label htmlFor="category">Category:</label>
                 <select value={category} name="category" id="category" className='text-blackDark text-[14px] w-[217px] h-[38px] px-4 pr-8 mx-2 border-none' onChange={handleSelectChange} >
-                    <option value="volvo">- Select Category -</option>
                     {
                     categories?(
                         categories.map((category)=>(
@@ -71,7 +76,7 @@ const AddNewProduct = ({handleClick, categories}) => {
                 <input value={description} onChange={(e)=>setDescription(e.target.value)} className='mx-1 border-2 px-2 py-1 text-blackPrimary border-[rgba(29, 36, 46, 1)] focus:outline-none ' type="text" placeholder='Medicine description' name='description' />   
 
                 <label htmlFor="price">Price:</label>
-                <input value={price} onChange={(e)=>setPrice(e.target.value)} className='mx-1 border-2 px-2 py-1 text-blackPrimary border-[rgba(29, 36, 46, 1)] focus:outline-none ' type="text" placeholder='Medicine price' name='price' />   
+                <input value={price} onChange={(e)=>setPrice(e.target.value)} className='mx-1 border-2 px-2 py-1 text-blackPrimary border-[rgba(29, 36, 46, 1)] focus:outline-none ' type="number" placeholder='Medicine price' name='price' />   
 
                 {/* <label htmlFor="stock">Initial stock:</label>
                 <input value={stock} onChange={(e)=>setStock(e.target.value)} className='mx-1 border-2 px-2 py-1 text-blackPrimary border-[rgba(29, 36, 46, 1)] focus:outline-none ' type="number" placeholder='Medicine initial stock' name='stock' />    */}
