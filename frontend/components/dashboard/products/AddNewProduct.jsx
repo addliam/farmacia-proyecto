@@ -82,7 +82,7 @@ const AddNewProduct = ({handleClick, categories, refreshAction}) => {
                 </select>                
 
                 <label htmlFor="description">Description:</label>
-                <input value={description} onChange={(e)=>setDescription(e.target.value)} className='mx-1 border-2 px-2 py-1 text-blackPrimary border-[rgba(29, 36, 46, 1)] focus:outline-none ' type="text" placeholder='Medicine description' name='description' />   
+                <textarea rows={5} value={description} onChange={(e)=>setDescription(e.target.value)} className='mx-1 border-2 px-2 py-1 text-blackPrimary border-[rgba(29, 36, 46, 1)] focus:outline-none ' type="text" placeholder='Medicine description' name='description' />   
 
                 <label htmlFor="price">Price:</label>
                 <input value={price} onChange={(e)=>setPrice(e.target.value)} className='mx-1 border-2 px-2 py-1 text-blackPrimary border-[rgba(29, 36, 46, 1)] focus:outline-none ' type="number" placeholder='Medicine price' name='price' />   

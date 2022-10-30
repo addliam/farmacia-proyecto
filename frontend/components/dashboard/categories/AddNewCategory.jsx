@@ -60,7 +60,7 @@ const AddNewCategory = ({handleCloseClick, refreshAction}) => {
                 <input value={name} onChange={(e)=>setName(e.target.value)} className='mx-1 border-2 px-2 py-1 text-blackPrimary border-[rgba(29, 36, 46, 1)] focus:outline-none ' type="text" placeholder='Category name' name='name' />   
 
                 <label htmlFor="description">Description:</label>
-                <input value={description} onChange={(e)=>setDescription(e.target.value)} className='mx-1 border-2 px-2 py-1 text-blackPrimary border-[rgba(29, 36, 46, 1)] focus:outline-none ' type="text" placeholder='Category description' name='description' />   
+                <textarea rows={5} value={description} onChange={(e)=>setDescription(e.target.value)} className='mx-1 border-2 px-2 py-1 text-blackPrimary border-[rgba(29, 36, 46, 1)] focus:outline-none ' type="text" placeholder='Category description' name='description' />   
 
                 <input className='cursor-pointer mt-4 text-white w-fit px-6 py-2 bg-orange ' type="submit" value="Add category" />
             </form>
