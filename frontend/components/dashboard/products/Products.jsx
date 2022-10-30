@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Search from '../../Search'
 import PageNumberFoot from './PageNumberFoot'
 
-const Products = ({medicineData, categories, handleClick}) => {
+const Products = ({medicineData, categories, handleClick, searchHandler, triggerOnBlankField}) => {
   const medicineDataLength = medicineData.length
 
   const [pageNumber, setPageNumber] = useState(1)
@@ -26,7 +26,7 @@ const Products = ({medicineData, categories, handleClick}) => {
           <span className="text-[#1D242E80] text-[22px] font-semibold ">
           {"Inventory > "} 
           </span>
-          Medicines {`(${medicineData?medicineDataLength:'000'})`}
+          Medicines {`(${medicineDataLength>0?medicineDataLength:'000'})`}
           </h3>
           <span className='text-[13px] font-normal leading-[21px] text-blackDark '>List of medicines available for sale</span>
         </div>
@@ -38,7 +38,7 @@ const Products = ({medicineData, categories, handleClick}) => {
         </div>
       </div>
       <div className='search_and_filter mt-2 flex flex-row justify-between '>
-        <Search placeholder={'Search medicine inventary'} />
+        <Search buttonHandler={searchHandler} triggerOnBlankField={triggerOnBlankField} placeholder={'Search medicine inventary'} />
         <div className='flex flex-row'>
           <div className='w-8 flex flex-row justify-center items-center '>
             <Image src="/assets/icons/filter.svg" width={14} height={14} />
@@ -46,7 +46,7 @@ const Products = ({medicineData, categories, handleClick}) => {
           <select name="category" id="category" className='text-blackDark text-[14px] w-[217px] h-[38px] px-4 pr-8'>
             <option value="volvo">- Select Category -</option>
             {
-              categories?(
+              categories.length>0?(
                 categories.map((category)=>(
                   <option key={category._id} value={`${category.name}`}>{category.name}</option>
                 ))
@@ -57,7 +57,7 @@ const Products = ({medicineData, categories, handleClick}) => {
       </div>
       <div className='mt-6 flex flex-row justify-center'>
         <TableProducts page={pageNumber}
-        data={medicineData?medicineData.slice((pageNumber-1)*8,pageNumber*8):[]} />
+        data={medicineDataLength>0?medicineData.slice((pageNumber-1)*8,pageNumber*8):[]} />
       </div>
       <div className='mt-10 absolute w-11/12 bottom-2'>
         <PageNumberFoot maxPage={Math.ceil(medicineDataLength/8)} total={medicineDataLength} pageNumber={pageNumber} leftHandler={leftArrowHandler} rightHandler={rightArrowHandler} />

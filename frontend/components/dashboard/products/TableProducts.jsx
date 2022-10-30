@@ -59,7 +59,11 @@ const TableCategories = ({data}) => {
                 {
                     data.length>0?data.map((product)=>(
                         <TableProductsRow key={product._id} product={product} />
-                    )):''
+                    )):(
+                        <div className='px-4 flex flex-row py-4'>
+                            <span >No data found</span>
+                        </div>
+                    )
                 }
 
             </tbody>

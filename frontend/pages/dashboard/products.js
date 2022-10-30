@@ -11,7 +11,7 @@ const DashboardProducts = ({dataProducts, dataCategories}) => {
   const [currentDataProducts, setCurrentDataProducts] = useState(dataProducts)
 
   const handleShowForm = () => {
-    setShowNewProductoForm((prev)=>!prev)
+    setShowNewProductoForm(true)
   }
   const handleHideForm = () => {
     setShowNewProductoForm(false)
@@ -21,6 +21,16 @@ const DashboardProducts = ({dataProducts, dataCategories}) => {
     const resultProducts = await axios.get(BASE_URL_API+"/products")
     const dataProducts = resultProducts.data;
     setCurrentDataProducts(dataProducts)    
+  }
+
+  const searchFieldHandler = (value) =>{
+    const valueLower = value.toLowerCase()
+    setCurrentDataProducts((dataProducts)=>dataProducts.filter((prod)=>prod.name.toLowerCase().startsWith(valueLower)))
+  }
+
+  const resetDataProductsInitialValue = () => {
+    // refreshData() or 
+    setCurrentDataProducts(dataProducts)
   }
   
   // useEffect(() => {
@@ -47,7 +57,7 @@ const DashboardProducts = ({dataProducts, dataCategories}) => {
       ):('')
     }
     <DashboardWrapper>
-        <Products handleClick={handleShowForm} medicineData={currentDataProducts} categories={dataCategories} refreshAction={''} />
+        <Products triggerOnBlankField={resetDataProductsInitialValue} searchHandler={searchFieldHandler} handleClick={handleShowForm} medicineData={currentDataProducts} categories={dataCategories} refreshAction={''} />
     </DashboardWrapper>
   </>  
   )
