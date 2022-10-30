@@ -47,7 +47,11 @@ const TableProducts = ({data}) => {
                 {
                     data.length>0?data.map((category)=>(
                         <TableCategoryRow key={category._id} category={category} />
-                    )):''
+                    )):(
+                        <div className='px-4 flex flex-row py-4'>
+                            <span >No category data found</span>
+                        </div>                        
+                    )
                 }
 
             </tbody>
