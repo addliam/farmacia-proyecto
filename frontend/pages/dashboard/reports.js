@@ -1,9 +1,13 @@
 import React from 'react'
+import Reports from '../../components/dashboard/reports/Reports'
+import DashboardWrapper from '../../components/DashboardWrapper'
 
-const reports = () => {
+const DashboardReports = () => {
   return (
-    <div>reports</div>
+    <DashboardWrapper>
+      <Reports />
+    </DashboardWrapper>
   )
 }
 
-export default reports
+export default DashboardReports

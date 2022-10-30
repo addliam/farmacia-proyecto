@@ -1,9 +1,13 @@
 import React from 'react'
+import Batchs from '../../components/dashboard/batchs/Batch'
+import DashboardWrapper from '../../components/DashboardWrapper'
 
-const batchs = () => {
+const DashboardBatchs = () => {
   return (
-    <div>batchs</div>
+    <DashboardWrapper>
+      <Batchs />
+    </DashboardWrapper>
   )
 }
 
-export default batchs
+export default DashboardBatchs

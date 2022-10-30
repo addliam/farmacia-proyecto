@@ -1,9 +1,13 @@
 import React from 'react'
+import Settings from '../../components/dashboard/settings/Settings'
+import DashboardWrapper from '../../components/DashboardWrapper'
 
-const settings = () => {
+const DashboardSettings = () => {
   return (
-    <div>settings</div>
+    <DashboardWrapper>
+      <Settings />
+    </DashboardWrapper>
   )
 }
 
-export default settings
+export default DashboardSettings

@@ -1,9 +1,13 @@
 import React from 'react'
+import Alerts from '../../components/dashboard/alerts/Alerts'
+import DashboardWrapper from '../../components/DashboardWrapper'
 
-const alerts = () => {
+const DashboardAlerts = () => {
   return (
-    <div>alerts</div>
+    <DashboardWrapper>
+      <Alerts />
+    </DashboardWrapper>
   )
 }
 
-export default alerts
+export default DashboardAlerts

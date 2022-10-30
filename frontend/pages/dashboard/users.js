@@ -1,9 +1,13 @@
 import React from 'react'
+import Users from '../../components/dashboard/users/Users'
+import DashboardWrapper from '../../components/DashboardWrapper'
 
-const users = () => {
+const DashboardUsers = () => {
   return (
-    <div>users</div>
+    <DashboardWrapper>
+      <Users />
+    </DashboardWrapper>
   )
 }
 
-export default users
+export default DashboardUsers
