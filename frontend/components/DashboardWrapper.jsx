@@ -4,7 +4,7 @@ import NavTop from '../components/NavTop'
 
 const DashboardWrapper = ({children}) => {
   return (
-    <div className='h-[100vh] w-[100vw] flex flex-row gap-0  '>
+    <div className='h-[100vh] w-[100vw] flex flex-row gap-0 overflow-hidden '>
       <SideNav />
       <div className='flex w-4/5 flex-col'>
         <NavTop /> 

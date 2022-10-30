@@ -53,6 +53,8 @@ const SideNav = () => {
             {/* <SideNavItem image={"/assets/icons/dashboard.png"} title={"Inputs"} />
             <SideNavItem image={"/assets/icons/dashboard.png"} title={"Outputs"} /> */}
             <SideNavItem image={"/assets/icons/dashboard.png"} path={"/batchs"} title={"Batchs"} w={14} h={14} />
+            <SideNavItem image={"/assets/icons/packing-24.png"} path={"/inputs"} title={"Inputs"} w={18} h={18} />
+            <SideNavItem image={"/assets/icons/unpacking-24.png"} path={"/outputs"} title={"Outputs"} w={18} h={18} />
             <SideNavItem image={"/assets/icons/users.png"} path={"/users"} title={"Users management"}
             w={14} h={9.8} />
             <SideNavItem image={"/assets/icons/reports.png"} path={"/reports"}  title={"Reports"}
