@@ -8,6 +8,7 @@ const getBatchs = asyncHandler(async (req,res) => {
 })
 
 // @data productId, number, caducation
+// might be automatically called on inputModel creation
 const createBatch = asyncHandler(async (req,res) => {
     if (!req.body.productId || !req.body.caducation || !req.body.number){
         res.status(400).send({error: "Fields productId, number and caducation required"})
