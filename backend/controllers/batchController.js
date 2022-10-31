@@ -7,17 +7,21 @@ const getBatchs = asyncHandler(async (req,res) => {
     res.status(200).json(batchs)
 })
 
+// @data productId, number, caducation
 const createBatch = asyncHandler(async (req,res) => {
-    if (!req.body.productId || !req.body.stock || !req.body.caducation || !req.body.number){
-        res.status(400).send({error: "Fields productId, stock, caducation required"})
+    if (!req.body.productId || !req.body.caducation || !req.body.number){
+        res.status(400).send({error: "Fields productId, number and caducation required"})
     }else{
-        const product = await Product.findById(req.body.productId)
-        if (!product){
+        const productData = await Product.findById(req.body.productId)
+        if (!productData){
             res.status(400).send({error: "ProductId not found"})
         }else{
             const newBatch = await Batch.create({
-                productId: req.body.productId,
-                stock: req.body.stock,
+                product: {
+                    id: productData._id,
+                    name: productData.name,
+                },
+                stock: 0,
                 number: req.body.number,
                 caducation: req.body.caducation
             })
@@ -27,13 +31,15 @@ const createBatch = asyncHandler(async (req,res) => {
 })
 
 // pass id as param
+// @data productId, number, caducation
 const updateBatch = asyncHandler(async (req,res) => {
-    const batch = await Batch.findById(req.params.id)
-    if (!batch){
+    const batchData = await Batch.findById(req.params.id)
+    if (!batchData){
         res.status(400).json({error: "Batch not found"})        
     }
     // Todo check if not user
-    const updatedBatch = await Batch.findByIdAndUpdate(req.params.id, req.body,{new: true})
+    // Todo check id data params are complete
+    const updatedBatch = await Batch.findByIdAndUpdate(req.params.id, req.body, {new: true})
     res.status(200).json(updatedBatch)
 })
 

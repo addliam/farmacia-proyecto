@@ -4,7 +4,7 @@ import Products from '../../components/dashboard/products/Products'
 import AddNewProduct from '../../components/dashboard/products/AddNewProduct'
 import axios from "axios"
 
-const BASE_URL_API = 'http://localhost:5000/api'
+import { BASE_URL_API } from '../../components/lib/urlApi'
 
 const DashboardProducts = ({dataProducts, dataCategories}) => {
   const [showNewProductoForm, setShowNewProductoForm] = useState(false);

@@ -1,14 +1,21 @@
 const mongoose = require('mongoose');
 const batchSchema = mongoose.Schema(
     {
-        productId: {
-            type: mongoose.Schema.Types.ObjectId
+        product: {
+            id : {
+                type: mongoose.Schema.Types.ObjectId
+            },
+            name: {
+                type: String
+            }
         },
+        // gets modifies by inputs and outputs
         stock: {
             type: Number,
+            default: 0
         },
         number: {
-            type: String,
+            type: Number,
         },
         caducation: {
             type: Date,

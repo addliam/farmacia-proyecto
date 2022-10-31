@@ -51,10 +51,10 @@ const Products = ({medicineData, categories, handleClick, categoryFilterHandler,
           <span className='text-[13px] font-normal leading-[21px] text-blackDark '>List of medicines available for sale</span>
         </div>
         <div className='addproduct'>
-          <button onClick={()=>handleClick()} className='bg-orange text-white rounded-md flex flex-row h-[46px] w-[162px] items-center  '>
-            <span className='text-2xl ml-[18px] '>+</span>
-            <span className='text-[15px] ml-[10px] '>Add new item</span>
-          </button>
+          <button onClick={()=>handleClick()} className='bg-orange text-white rounded-md flex flex-row h-[46px] w-fit items-center px-4 '>
+            <span className='text-2xl'>+</span>
+            <span className='text-[15px] ml-2'>Add new item</span>
+          </button>          
         </div>
       </div>
       <div className='search_and_filter mt-2 flex flex-row justify-between '>

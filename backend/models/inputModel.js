@@ -1,10 +1,20 @@
 const mongoose = require('mongoose');
 const inputSchema = mongoose.Schema(
     {
-        productId: {
-            type: mongoose.Schema.Types.ObjectId
+        product: {
+            id : {
+                type: mongoose.Schema.Types.ObjectId
+            },
+            name: {
+                type: String
+            }
         },
-        stock: {
+        batch: {
+            id: {
+                type: mongoose.Schema.Types.ObjectId
+            }
+        },
+        quantity: {
             type: Number,
         },
     },

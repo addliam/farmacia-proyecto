@@ -4,7 +4,7 @@ import Categories from '../../components/dashboard/categories/Categories'
 import AddNewCategory from '../../components/dashboard/categories/AddNewCategory'
 import axios from "axios"
 
-const BASE_URL_API = 'http://localhost:5000/api'
+import { BASE_URL_API } from '../../components/lib/urlApi'
 
 const DashboardCategories = ({dataCategories}) => {
   const [currentDataCategories, setCurrentDataCategories] = useState(dataCategories);
