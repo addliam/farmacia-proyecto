@@ -1,18 +1,18 @@
 const mongoose = require('mongoose');
 const outputSchema = mongoose.Schema(
     {
-        product: {
-            id : {
-                type: mongoose.Schema.Types.ObjectId
-            },
-            name: {
-                type: String
-            }
-        },
         batch: {
-            id: {
-                type: mongoose.Schema.Types.ObjectId
-            }
+            product: {
+                id : {
+                    type: mongoose.Schema.Types.ObjectId
+                },
+                name: {
+                    type: String
+                }
+            },
+            number: {
+                type: Number,
+            },
         },
         quantity: {
             type: Number,

@@ -1,29 +1,54 @@
 const asyncHandler = require("express-async-handler")
 const Output  = require("../models/outputModel")
 const Product = require("../models/productModel")
+const Batch = require("../models/batchModel")
 
 const getOutputs = asyncHandler(async (req,res) => {
     const outputsProduct = await Output.find()
     res.status(200).json(outputsProduct)
 })
 
-// call automaticaly when added batch 
-// @data productId, stock
+// @data batchId, quantity
+
+// @resp errorCode 0 - quantity is not positive numeric
+// @resp errorCode 1 - batch not exists
+// @resp errorCode 2 - Quantity cannot be less than actual batch stock, returns batchStock
+
+// @resp successCode 1 - created only output
 const createOutput = asyncHandler(async (req,res) => {
-    if (!req.body.productId || !req.body.stock){
-        res.status(400).send({error: "Fields productId and stock required"})
-    }else{
-        const product = await Product.findById(req.body.productId)
-        if (!product){
-            res.status(400).send({error: "ProductId not found"})
-        }else{
-            const newOutput = await Output.create({
-                productId: req.body.productId,
-                stock: req.body.stock
-            })
-            const stockQty = parseInt(req.body.stock)
-            await Product.findByIdAndUpdate(req.body.productId,{$inc: {stock: -stockQty}})
-            res.status(201).json(newOutput)
+    const num = Number(req.body.quantity)
+    const qtyIsNumeric = Number.isInteger(num) && num > 0
+    if (!req.body.batchId || !req.body.quantity){
+        res.status(400).json({error: "Fields batchId and quantity required"})
+    }
+    if(!qtyIsNumeric){
+        res.status(400).json({error: "Quantity must be numeric", errorCode: 0})
+    }
+    else{
+        const batchData = await Batch.findById(req.body.batchId)
+        if (!batchData){
+            res.status(400).json({error: "Batch not found", errorCode: 1})
+        }
+        else{
+            if (batchData.stock < num){
+                res.status(400).json({error: "Quantity can not be less than actual batch stock", errorCode: 2, batchStock: batchData.stock})
+            }
+            else{
+                const productQtyDecreased = await Product.findByIdAndUpdate(batchData.product.id, {$inc: {stock: -num}})
+                const updatedBatchStock = await Batch.findByIdAndUpdate(batchData._id, {$inc: {stock: -num}})
+                const newOutput = {
+                    batch: {
+                        product: {
+                            id: batchData.product.id,
+                            name: batchData.product.name,
+                        },
+                        number: batchData.number,
+                    },
+                    quantity: num
+                }
+                const createdOutput = await Output.create(newOutput)
+                res.status(201).json({sucessCode: 1, data: [createdOutput, updatedBatchStock]})
+            }
         }
     }
 })
