@@ -10,7 +10,7 @@ const DateTimeWidget = () => {
             {
                 isMorning?(
                     <div className="flex flex-row justify-end gap-[10px]">
-                    <div className='w-[18px] block h-[18px] bg-[#FED600] rounded-full ' />
+                    <div className='w-[18px] block h-[18px] bg-[#FFE800] rounded-full ' />
                     <span className="text-[14px] font-semibold text-blackDark leading-[24px] ">Good morning</span>
                   </div>
                 ):(

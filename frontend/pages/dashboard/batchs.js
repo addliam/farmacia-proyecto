@@ -5,20 +5,24 @@ import axios from "axios"
 
 import { BASE_URL_API } from '../../components/lib/urlApi'
 
-const DashboardBatchs = ({batchAPIData}) => {
+const DashboardBatchs = ({batchAPIData, productsAPIData}) => {
   return (
     <DashboardWrapper>
-      <Batchs batchData={batchAPIData} />
+      <Batchs batchData={batchAPIData} productsData={productsAPIData} />
     </DashboardWrapper>
   )
 }
 
 export async function getStaticProps() {
   const resultBatches = await axios.get(BASE_URL_API+"/batchs")
-  const batchAPIData = resultBatches.data;
+  const batchAPIData = resultBatches.data
+  // Product data needed to suggest on search by product name
+  const resultProducts = await axios.get(BASE_URL_API+"/products")
+  const productsAPIData = resultProducts.data
   return {
     props: {
       batchAPIData,
+      productsAPIData,
     },
   }
 }
