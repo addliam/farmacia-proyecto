@@ -94,6 +94,15 @@ const updateInput = asyncHandler(async (req,res) => {
 
 // pass id as param
 const deleteInput = asyncHandler(async (req,res) => {
+    // TODO: Keep this in development, remove in production
+    if (!req.params.id){
+        res.status(400).json({error: "Id required as param"})
+    }
+    if (req.params.id === 'all'){
+        res.status(400)
+        const deleted = await Input.deleteMany({})
+        res.status(201).json(deleted)
+    }    
     const input = await Input.findById(req.params.id)
     if (!input){
         res.status(400)

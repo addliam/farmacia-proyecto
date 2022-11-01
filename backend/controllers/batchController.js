@@ -9,6 +9,7 @@ const getBatchs = asyncHandler(async (req,res) => {
 
 // @data productId, number, caducation
 // might be automatically called on inputModel creation
+// TODO: this function might be removed 
 const createBatch = asyncHandler(async (req,res) => {
     if (!req.body.productId || !req.body.caducation || !req.body.number){
         res.status(400).send({error: "Fields productId, number and caducation required"})
@@ -44,8 +45,17 @@ const updateBatch = asyncHandler(async (req,res) => {
     res.status(200).json(updatedBatch)
 })
 
-// pass id as param
+// @param id - batch id
 const deleteBatch = asyncHandler(async (req,res) => {
+    // TODO: Keep this in development, remove in production
+    if (!req.params.id){
+        res.status(400).json({error: "Id required as param"})
+    }
+    if (req.params.id === 'all'){
+        res.status(400)
+        const deleted = await Batch.deleteMany({})
+        res.status(201).json(deleted)
+    }    
     const batch = await Batch.findById(req.params.id)
     if (!batch){
         res.status(400)
