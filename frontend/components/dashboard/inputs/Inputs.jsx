@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState} from 'react'
+import TableInputs from './TableInputs';
 
 const InputsHeader =  ({inputAllData}) => {
   const inputDataLength = inputAllData?inputAllData.length:0;
@@ -21,10 +22,14 @@ const InputsHeader =  ({inputAllData}) => {
 }
 
 const Inputs = ({inputData}) => {
+  const [currentInputData, setcurrentInputData] = useState(inputData);
 
   return (
     <div className='pt-[16px] px-[40px] h-full relative bg-whiteGray'>
       <InputsHeader inputAllData={inputData}/>
+      <div className='max-h-[460px] pt-2 table-wrapper overflow-y-auto '>
+        <TableInputs data={currentInputData} />
+      </div>      
     </div>    
   )
 }
