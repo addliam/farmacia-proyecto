@@ -4,8 +4,7 @@ import Image from 'next/image'
 import Search from '../../Search'
 import PageNumberFoot from './PageNumberFoot'
 
-const Products = ({medicineData, categories, handleClick, categoryFilterHandler, searchHandler, triggerOnBlankField}) => {
-  console.log("Render: Products - Products.jsx");
+const Products = ({totalLength, refreshAction, medicineData, categories, handleClick, categoryFilterHandler, searchHandler, triggerOnBlankField}) => {
   const medicineDataLength = medicineData.length
 
   const [pageNumber, setPageNumber] = useState(1)
@@ -13,9 +12,11 @@ const Products = ({medicineData, categories, handleClick, categoryFilterHandler,
 
   useEffect(() => {
     if (categoryFilter!==''){
-      console.log(`Category id: ${categoryFilter}`);
       categoryFilterHandler(categoryFilter)
     }  
+    // if (categoryFilter==="default"){
+    //   refreshAction('')
+    // }
     return () => {
     }
   }, [categoryFilter])
@@ -33,7 +34,7 @@ const Products = ({medicineData, categories, handleClick, categoryFilterHandler,
     setPageNumber((page)=>page-1)
   }
   
-  const slicedMedicineData = useMemo(() => medicineData.slice((pageNumber-1)*8,pageNumber*8), [pageNumber]) 
+  const slicedMedicineData = useMemo(() => medicineData.slice((pageNumber-1)*8,pageNumber*8), [pageNumber, medicineData]) 
 
   const maximumPageNumber = useMemo(() => Math.ceil(medicineDataLength/8), [medicineData])
 
@@ -46,7 +47,7 @@ const Products = ({medicineData, categories, handleClick, categoryFilterHandler,
           <span className="text-[#1D242E80] text-[22px] font-semibold ">
           {"Inventory > "} 
           </span>
-          Medicines {`(${medicineDataLength>0?medicineDataLength:'000'})`}
+          Medicines {`(${totalLength>0?totalLength:'000'})`}
           </h3>
           <span className='text-[13px] font-normal leading-[21px] text-blackDark '>List of medicines available for sale</span>
         </div>
@@ -64,7 +65,7 @@ const Products = ({medicineData, categories, handleClick, categoryFilterHandler,
             <Image src="/assets/icons/filter.svg" width={14} height={14} />
           </div>
           <select value={categoryFilter} onChange={handleCategoryFilter} name="category" id="category" className='text-blackDark text-[14px] w-[217px] h-[38px] px-4 pr-6'>
-            <option>- Filter by Category -</option>
+            <option value={"default"} >- Filter by Category -</option>
             {
               categories.length>0?(
                 categories.map((category)=>(

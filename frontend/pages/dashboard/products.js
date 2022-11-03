@@ -10,6 +10,8 @@ const DashboardProducts = ({dataProducts, dataCategories}) => {
   const [showNewProductoForm, setShowNewProductoForm] = useState(false);
   const [currentDataProducts, setCurrentDataProducts] = useState(dataProducts)
 
+  const totalDataLength = dataProducts.length
+
   const handleShowForm = () => {
     setShowNewProductoForm(true)
   }
@@ -32,8 +34,9 @@ const DashboardProducts = ({dataProducts, dataCategories}) => {
     [dataProducts],
   )
 
-  const categoryFilterHandler = (categoryFilter) => {
-    setCurrentDataProducts(()=>dataProducts.filter((prod)=>prod.category.id===categoryFilter))
+  const categoryFilterHandler = (idCateg) => {
+    console.log(`Category filter handler: ${idCateg}`);
+    setCurrentDataProducts(()=>dataProducts.filter((prod)=>prod.category.id===idCateg))
   }
 
   const resetDataProductsInitialValue = () => {
@@ -65,7 +68,7 @@ const DashboardProducts = ({dataProducts, dataCategories}) => {
       ):('')
     }
     <DashboardWrapper>
-        <Products triggerOnBlankField={resetDataProductsInitialValue} categoryFilterHandler={categoryFilterHandler} searchHandler={searchFieldHandler} handleClick={handleShowForm} medicineData={currentDataProducts} categories={dataCategories} refreshAction={''} />
+        <Products refreshAction={refreshData} totalLength={totalDataLength} triggerOnBlankField={resetDataProductsInitialValue} categoryFilterHandler={categoryFilterHandler} searchHandler={searchFieldHandler} handleClick={handleShowForm} medicineData={currentDataProducts} categories={dataCategories} />
     </DashboardWrapper>
   </>  
   )
