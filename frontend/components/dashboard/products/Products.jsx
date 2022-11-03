@@ -14,9 +14,9 @@ const Products = ({totalLength, refreshAction, medicineData, categories, handleC
     if (categoryFilter!==''){
       categoryFilterHandler(categoryFilter)
     }  
-    // if (categoryFilter==="default"){
-    //   refreshAction('')
-    // }
+    if (categoryFilter==="default"){
+      refreshAction()
+    }
     return () => {
     }
   }, [categoryFilter])
