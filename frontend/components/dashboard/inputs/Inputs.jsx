@@ -45,17 +45,21 @@ const Inputs = ({inputData, productsData}) => {
   const handleToDateChange = (d) => { setToDate(d) }
   
   const applyFilterFunction = () => {
-    console.log(`Are tring to apply`)
-    console.log(`inputSearchValue ${inputSearchValue}`)
-    console.log(`fromDate ${fromDate}`)
-    console.log(`toDate ${toDate}`)
-    const lowerInputSearchValue = inputSearchValue.toLowerCase()
-    setCurrentInputData((inputData) => (
-      inputData.filter((input)=> 
-        input.batch.product.name.toLowerCase().startsWith(lowerInputSearchValue) &&
-        new Date(input.createdAt).getTime() > new Date(fromDate).getTime() && new Date(input.createdAt).getTime() < new Date(toDate).getTime()
-      ) 
-    ))    
+    if (inputSearchValue === ""){
+      setCurrentInputData(() => (
+        inputData.filter((input)=> 
+          new Date(input.createdAt).getTime() > new Date(fromDate).getTime() && new Date(input.createdAt).getTime() < new Date(toDate).getTime()
+        ) 
+      ))    
+    }else{
+      const lowerInputSearchValue = inputSearchValue.toLowerCase()
+      setCurrentInputData(() => (
+        inputData.filter((input)=> 
+          input.batch.product.name.toLowerCase().startsWith(lowerInputSearchValue) &&
+          new Date(input.createdAt).getTime() > new Date(fromDate).getTime() && new Date(input.createdAt).getTime() < new Date(toDate).getTime()
+        ) 
+      ))    
+    }
   }
 
   const handleInputSearchClickButton = () => {
