@@ -6,7 +6,7 @@ import FilterDateRange from './FilterDateRange';
 const InputsHeader =  ({inputAllData, DateRangeComponent }) => {
   const inputDataLength = inputAllData?inputAllData.length:0;
   return (
-  <div className='flex flex-row justify-between'>
+  <div className='flex flex-row justify-between '>
     <div className='page-title'>
       <h3 className='text-blackDark text-[22px] font-bold '>
       Inputs {`(${inputDataLength>0?inputDataLength:'000'})`}
@@ -17,7 +17,7 @@ const InputsHeader =  ({inputAllData, DateRangeComponent }) => {
       { DateRangeComponent?<FilterDateRange />:'' }
     </div>
     <div className='addproduct'>
-      <button onClick={()=>handleClick()} className='bg-orange text-white rounded-md flex flex-row h-[46px] w-fit items-center px-4 '>
+      <button onClick={()=>handleClick()} className='bg-orange hover:bg-orangeContrast text-white rounded-md flex flex-row h-[46px] w-fit items-center px-4 '>
         <span className='text-2xl'>+</span>
         <span className='text-[15px] ml-2'>Add new input</span>
       </button>

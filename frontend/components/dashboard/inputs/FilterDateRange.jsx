@@ -23,14 +23,19 @@ const FilterDateRange = () => {
           Filter by date range: 
         </span>
       </div>
-      <div className='flex flex-row gap-4 z-50 max-w-[200px] '>
+      <div className='flex flex-row gap-4 z-50 max-w-[200px] place-items-end  '>
         <div className='from'>
           <span className='text-[12px] '>From:</span>
           <DatePicker selected={fromDate} onChange={(d)=>setFromDate(d)} customInput={<CustomInput />} />
         </div>
         <div className='to'>
           <span className='text-[12px] '>To:</span>
-          <DatePicker selected={toDate} onChange={(d)=>setFromDate(d)} customInput={<CustomInput />} />
+          <DatePicker selected={toDate} onChange={(d)=>setToDate(d)} customInput={<CustomInput />} />
+        </div>
+        <div className='button-date-range mb-[2px] '>
+          <button className='bg-orange hover:bg-orangeContrast text-sm text-white rounded-md flex flex-row h-[32px] w-fit items-center px-4 '>
+            Apply
+          </button>
         </div>
       </div>
     </div>

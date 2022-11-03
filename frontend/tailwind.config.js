@@ -16,6 +16,7 @@ module.exports = {
         blackOverlay: "rgba(29, 36, 46, 0.5)",
         yellow: "#FED600",
         orange: "#F0483E",
+        orangeContrast: "#E0443B",
         red: "#F0483E",
         skyBlue: "#03A9F5",
         green: "#01A768",
