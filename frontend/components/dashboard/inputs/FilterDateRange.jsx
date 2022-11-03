@@ -4,10 +4,6 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 
 const FilterDateRange = ({handleFromDateChange, handleToDateChange, valuef, valuet, handleClickApplyFilter}) => {
-  // const dateMinus2Days = new Date()
-  // dateMinus2Days.setDate(dateMinus2Days.getDate() - 5)
-
-  // const [fromDate, setFromDate] = useState(dateMinus2Days)
 
   const CustomInput = forwardRef(({ value, onClick }, ref) => (
     <button className="text-[14px] h-[36px] bg-[#E3EBF3] rounded-l px-3  focus:outline-2 hover:bg-[#d2d7dd] " onClick={onClick} ref={ref}>
