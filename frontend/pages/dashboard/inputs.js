@@ -9,7 +9,7 @@ import { BASE_URL_API } from '../../components/lib/urlApi'
 const DashboardInputs = ({inputsAPIData, productsAPIData}) => {
   return (
     <DashboardWrapper>
-      <Inputs inputData={inputsAPIData} />
+      <Inputs inputData={inputsAPIData} productsData={productsAPIData} />
     </DashboardWrapper>
   )
 }
