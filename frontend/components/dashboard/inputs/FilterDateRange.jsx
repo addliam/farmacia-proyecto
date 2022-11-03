@@ -15,7 +15,7 @@ const FilterDateRange = ({handleFromDateChange, handleToDateChange, valuef, valu
     <div className='flex flex-col'>
       <div className='h-min '>
         <span className='text-[14px] font-semibold '>
-          Filter by date range: 
+          Filter by register date: 
         </span>
       </div>
       <div className='flex flex-row gap-4 z-50 max-w-[200px] place-items-end  '>

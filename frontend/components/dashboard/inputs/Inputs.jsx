@@ -49,6 +49,13 @@ const Inputs = ({inputData, productsData}) => {
     console.log(`inputSearchValue ${inputSearchValue}`)
     console.log(`fromDate ${fromDate}`)
     console.log(`toDate ${toDate}`)
+    const lowerInputSearchValue = inputSearchValue.toLowerCase()
+    setCurrentInputData((inputData) => (
+      inputData.filter((input)=> 
+        input.batch.product.name.toLowerCase().startsWith(lowerInputSearchValue) &&
+        new Date(input.createdAt).getTime() > new Date(fromDate).getTime() && new Date(input.createdAt).getTime() < new Date(toDate).getTime()
+      ) 
+    ))    
   }
 
   const handleInputSearchClickButton = () => {
