@@ -3,12 +3,11 @@ import DatePicker from 'react-datepicker'
 
 import "react-datepicker/dist/react-datepicker.css";
 
-const FilterDateRange = () => {
-  const dateMinus2Days = new Date()
-  dateMinus2Days.setDate(dateMinus2Days.getDate() - 5)
+const FilterDateRange = ({handleFromDateChange, handleToDateChange, valuef, valuet, handleClickApplyFilter}) => {
+  // const dateMinus2Days = new Date()
+  // dateMinus2Days.setDate(dateMinus2Days.getDate() - 5)
 
-  const [fromDate, setFromDate] = useState(dateMinus2Days)
-  const [toDate, setToDate] = useState(new Date())
+  // const [fromDate, setFromDate] = useState(dateMinus2Days)
 
   const CustomInput = forwardRef(({ value, onClick }, ref) => (
     <button className="text-[14px] h-[36px] bg-[#E3EBF3] rounded-l px-3  focus:outline-2 hover:bg-[#d2d7dd] " onClick={onClick} ref={ref}>
@@ -26,14 +25,14 @@ const FilterDateRange = () => {
       <div className='flex flex-row gap-4 z-50 max-w-[200px] place-items-end  '>
         <div className='from'>
           <span className='text-[12px] '>From:</span>
-          <DatePicker selected={fromDate} onChange={(d)=>setFromDate(d)} customInput={<CustomInput />} />
+          <DatePicker selected={valuef} onChange={handleFromDateChange} customInput={<CustomInput />} />
         </div>
         <div className='to'>
           <span className='text-[12px] '>To:</span>
-          <DatePicker selected={toDate} onChange={(d)=>setToDate(d)} customInput={<CustomInput />} />
+          <DatePicker selected={valuet} onChange={handleToDateChange} customInput={<CustomInput />} />
         </div>
         <div className='button-date-range mb-[2px] '>
-          <button className='bg-orange hover:bg-orangeContrast text-sm text-white rounded-md flex flex-row h-[32px] w-fit items-center px-4 '>
+          <button onClick={()=>handleClickApplyFilter()} className='bg-orange hover:bg-orangeContrast text-sm text-white rounded-md flex flex-row h-[32px] w-fit items-center px-4 '>
             Apply
           </button>
         </div>
