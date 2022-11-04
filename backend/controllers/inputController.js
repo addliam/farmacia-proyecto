@@ -21,7 +21,7 @@ const createInput = asyncHandler(async (req,res) => {
     const num = Number(req.body.quantity)
     const qtyIsNumeric = Number.isInteger(num) && num > 0
     if (!req.body.productId || !req.body.batchNumber || !req.body.quantity){
-        res.status(400).send({error: "Fields productId, batchNumber and quantity required"})
+        res.status(400).send({error: "Fields productId, batchNumber, quantity and caducity (MM-DD-YYYY) required"})
     }
     if(!qtyIsNumeric){
         res.status(400).send({error: "Quantity must be numeric", errorCode: 0})

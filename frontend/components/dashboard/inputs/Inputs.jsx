@@ -3,7 +3,7 @@ import TableInputs from './TableInputs';
 import InputsSearch from './InputsSearch';
 import FilterDateRange from './FilterDateRange';
 
-const InputsHeader =  ({inputAllData, DateRangeComponent }) => {
+const InputsHeader =  ({inputAllData, DateRangeComponent, handleClick }) => {
   const inputDataLength = inputAllData?inputAllData.length:0;
   return (
   <div className='flex flex-row justify-between '>
@@ -26,7 +26,7 @@ const InputsHeader =  ({inputAllData, DateRangeComponent }) => {
   )
 }
 
-const Inputs = ({inputData, productsData}) => {
+const Inputs = ({inputData, productsData, handlerButtonAddInput}) => {
 
   const dateMinus2Days = new Date()
   dateMinus2Days.setDate(dateMinus2Days.getDate() - 5)
@@ -77,7 +77,7 @@ const Inputs = ({inputData, productsData}) => {
   )
   return (
     <div className='pt-[16px] px-[40px] h-full relative bg-whiteGray'>
-      <InputsHeader inputAllData={inputData} DateRangeComponent={FilterDateRangeComp}  />
+      <InputsHeader inputAllData={inputData} handleClick={handlerButtonAddInput} DateRangeComponent={FilterDateRangeComp}  />
       <div className='filters-input flex flex-row  gap-6 z-50 my-0 '>
         <div className='mt-2'>
           <InputsSearch productsNameList={productNameList} placeholder={"Search by product name"}
